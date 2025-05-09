@@ -45,14 +45,19 @@ console.log("✅ Données météo insérées !");
     const jours = await repo.find({ order: { date: "ASC" } });
 
     // Envoi vers apk_2
-    const response = await axios.post("http://localhost:4001/traitement", {
+    const response = await axios.post
+    ("http://localhost:4001/traitement", {
       meteo: jours, // on met tous les jours dans un champ "meteo"
     });
 
-    console.log("✅ Données envoyées à apk_2 :", response.data);
+    //console.log("✅ Données envoyées à apk_2 :", response.data);
 
+    
+//reccuperation de la reponse
     const { moyenneGlobale, jourLePlusFroid, jourLePlusChaud } = response.data;
 
+// resultat tendance de 7 jours
+console.log("=====>**les données reçues de apk_2**✅✅");
 console.log("📊 Moyenne globale sur 7 jours :", moyenneGlobale, "°C");
 console.log("📉 Jour le plus froid :", jourLePlusFroid.date, "-", jourLePlusFroid.temp_min, "°C");
 console.log("📈 Jour le plus chaud :", jourLePlusChaud.date, "-", jourLePlusChaud.temp_max, "°C");
@@ -62,11 +67,9 @@ console.log("📈 Jour le plus chaud :", jourLePlusChaud.date, "-", jourLePlusCh
 })
   .catch(console.error);
 
-  
-
 });
 
-
+//lancer sur le port 4000
 app.listen(4000, () => {
   console.log("lancement port 4000");
 });
